@@ -1,0 +1,20 @@
+*.iml
+.kotlin
+.gradle
+local.properties
+.idea
+.DS_Store
+build
+debug
+release
+/captures
+.externalNativeBuild
+.cxx
+.vscode
+java/bin
+groovy/bin
+kotlin/bin
+ruby/bin
+# 由gradle生成，可以忽略
+tsconfig.json
+.emmyrc.json

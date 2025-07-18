@@ -1,0 +1,16 @@
+[versions]
+
+[libraries]
+
+[plugins]
+m8test-groovy = { id = "com.m8test.gradle.groovy" }
+m8test-java = { id = "com.m8test.gradle.java" }
+m8test-kotlin = { id = "com.m8test.gradle.kotlin" }
+m8test-python = { id = "com.m8test.gradle.python" }
+m8test-javascript = { id = "com.m8test.gradle.javascript" }
+m8test-lua = { id = "com.m8test.gradle.lua" }
+m8test-php = { id = "com.m8test.gradle.php" }
+m8test-ruby = { id = "com.m8test.gradle.ruby" }
+kotlin = { id = "org.jetbrains.kotlin.jvm", version = "2.1.10" }
+
+[bundles]

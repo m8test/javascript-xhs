@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小红书自动化配置</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>小红书自动化配置</h1>
+        <button id="theme-toggle" class="btn btn-outline-secondary">
+            <span class="material-icons">dark_mode</span> 切换模式
+        </button>
+    </div>
+
+    <!-- 配置表单 -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">基本配置</h5>
+            <form id="config-form">
+                <div class="mb-3">
+                    <label for="viewDetailTime" class="form-label">查看详情时间（毫秒）</label>
+                    <input type="number" class="form-control" id="viewDetailTime" min="0" required>
+                </div>
+                <div class="mb-3">
+                    <label for="searchResultViewCount" class="form-label">搜索结果查看次数</label>
+                    <input type="number" class="form-control" id="searchResultViewCount" min="1"
+                           required>
+                </div>
+                <div class="mb-3">
+                    <label for="commentRate" class="form-label">评论概率（0-100）</label>
+                    <input type="number" class="form-control" id="commentRate" min="0" max="100"
+                           required>
+                </div>
+                <div class="mb-3">
+                    <label for="privateMessageRate" class="form-label">私信概率（0-100）</label>
+                    <input type="number" class="form-control" id="privateMessageRate" min="0" max="100"
+                           required>
+                </div>
+                <div class="mb-3">
+                    <label for="likeRate" class="form-label">点赞概率（0-100）</label>
+                    <input type="number" class="form-control" id="likeRate" min="0" max="100" required>
+                </div>
+                <div class="mb-3">
+                    <label for="favoriteRate" class="form-label">收藏概率（0-100）</label>
+                    <input type="number" class="form-control" id="favoriteRate" min="0" max="100"
+                           required>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 搜索文本列表 -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">搜索文本列表</h5>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="searchTextInput" placeholder="输入搜索文本">
+                <button class="btn btn-primary" id="addSearchText">添加</button>
+            </div>
+            <ul class="list-group" id="searchTextList"></ul>
+        </div>
+    </div>
+
+    <!-- 评论文本列表 -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">评论文本列表</h5>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="commentTextInput" placeholder="输入评论文本">
+                <button class="btn btn-primary" id="addCommentText">添加</button>
+            </div>
+            <ul class="list-group" id="commentTextList"></ul>
+        </div>
+    </div>
+
+    <!-- 私信文本列表 -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">私信文本列表</h5>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="privateMessageTextInput" placeholder="输入私信文本">
+                <button class="btn btn-primary" id="addPrivateMessageText">添加</button>
+            </div>
+            <ul class="list-group" id="privateMessageTextList"></ul>
+        </div>
+    </div>
+
+    <!-- 保存按钮 -->
+    <button class="btn btn-success" id="saveConfig">保存配置</button>
+
+    <!-- 运行/停止脚本按钮 -->
+    <button class="btn btn-success" id="runOrStop">运行/停止脚本</button>
+</div>
+
+<!-- 编辑模态框 -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">编辑文本</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="editTextInput">
+                <input type="hidden" id="editIndex">
+                <input type="hidden" id="editType">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="saveEdit">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="index.js"></script>
+</body>
+
+</html>
