@@ -153,9 +153,6 @@ function toggleTheme() {
     const isDark = body.classList.contains('dark-mode');
     body.classList.toggle('dark-mode', !isDark);
     body.classList.toggle('light-mode', isDark);
-    document.getElementById('theme-toggle').innerHTML = `
-        <span class="material-icons">${isDark ? 'light_mode' : 'dark_mode'}</span> 切换模式
-    `;
     localStorage.setItem('theme', isDark ? 'light' : 'dark');
 }
 
@@ -163,9 +160,6 @@ function toggleTheme() {
 function initTheme() {
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.body.classList.add(`${savedTheme}-mode`);
-    document.getElementById('theme-toggle').innerHTML = `
-        <span class="material-icons">${savedTheme === 'light' ? 'dark_mode' : 'light_mode'}</span> 切换模式
-    `;
 }
 
 // 事件监听
