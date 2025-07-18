@@ -3,6 +3,8 @@
 > 如有疑问，请加入我们的官方 QQ 群：[749248182](https://qm.qq.com/q/jVVADJCAI8) 或 QQ
 > 频道：[m8testofficial](https://pd.qq.com/s/8pidhywcy)
 
+本项目基于 M8Test JavaScript 运行时，已完整实现小红书自动评论、点赞、收藏及私信功能。 如需了解代码目录与文件职责，请查看 [项目结构](structure.md)。
+
 ---
 
 ## 📦 Gradle 任务说明
