@@ -57,11 +57,11 @@ m8testJavascript {
     projectConfig {
         // 相对于res目录的资源文件,会打包到apk的assets目录下
         // 这个文件表示apk启动时自动执行的脚本, 只能是true或者false
-        addAsset("assets/auto_start_spa.txt")
+        addAsset("auto_start_spa.txt")
         // 这个文件表示脚本项目官网,可以是一个网址
-        addAsset("assets/official_website.txt")
+        addAsset("official_website.txt")
         // 这个文件表示脚本项目版权信息
-        addAsset("assets/copyright.txt")
+        addAsset("copyright.txt")
         // 脚本项目入口文件, 这里是相对于src目录的路径
         entry = "com/example/script/primary.js"
         // 脚本项目包名, 和java包名规则一样
