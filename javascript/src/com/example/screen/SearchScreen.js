@@ -6,8 +6,8 @@ let random = require("com/example/util/random")
 /**
  * 随机获取需要搜索的文字
  *
- * @param {GlobalObjects} globalObjects 全局对象, 包含了所有需要的全局对象
- * @returns {string} 返回需要搜索的文字
+ * @param {GlobalObjects} globalObjects - 全局对象，包含了所有需要的全局对象
+ * @returns {string|null} - 返回需要搜索的文字，如果没有可用的搜索文本则返回 null
  */
 function getSearchText(globalObjects) {
     let searchTexts = globalObjects.xhsStorage.readConfig().searchTexts
@@ -22,8 +22,8 @@ function getSearchText(globalObjects) {
 /**
  * 创建一个新的搜索动作
  *
- * @param {GlobalObjects} globalObjects 全局对象, 包含了所有需要的全局对象
- * @returns {Action} 新创建的搜索动作
+ * @param {GlobalObjects} globalObjects - 全局对象，包含了所有需要的全局对象
+ * @returns {Action} - 新创建的搜索动作
  */
 function newPerformSearchAction(globalObjects) {
     let $stringResources = globalObjects.$stringResources;
@@ -32,9 +32,9 @@ function newPerformSearchAction(globalObjects) {
         let $accessibility = globalObjects.$accessibility;
         let $console = globalObjects.$console;
         let $threads = globalObjects.$threads;
-        // 如果是搜索的话, 就执行搜索相关操作
+        // 如果是搜索的话，就执行搜索相关操作
         $console.log($stringResources.getString("perform_search_action"));
-        // 获取搜索框, 可以编辑并且可以获取焦点的节点一般为编辑框
+        // 获取搜索框，可以编辑并且可以获取焦点的节点一般为编辑框
         let node = $accessibility.createSelector()
             .editable(function (isEditable) {
                 return isEditable;
@@ -71,10 +71,10 @@ function newPerformSearchAction(globalObjects) {
 }
 
 /**
- * 创建一个搜索的屏幕对象
+ * 创建一个搜索屏幕对象
  *
- * @param {GlobalObjects} globalObjects 全局对象, 包含了所有需要的全局对象
- * @returns {MobileScreen} 新的搜索屏幕对象
+ * @param {GlobalObjects} globalObjects - 全局对象，包含了所有需要的全局对象
+ * @returns {MobileScreen} - 新的搜索屏幕对象
  */
 function newScreen(globalObjects) {
     let $accessibility = globalObjects.$accessibility;

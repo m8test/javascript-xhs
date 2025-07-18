@@ -7,8 +7,8 @@ let random = require("com/example/util/random")
 /**
  * 创建一个发送消息动作对象
  *
- * @param {GlobalObjects} globalObjects 全局对象
- * @returns {Action} 返回一个新的点击用户头像动作对象
+ * @param {GlobalObjects} globalObjects - 全局对象，包含了所有需要的全局对象
+ * @returns {Action} - 返回一个新的发送消息动作对象
  */
 function newSendMessageAction(globalObjects) {
     let $stringResources = globalObjects.$stringResources;
@@ -22,7 +22,7 @@ function newSendMessageAction(globalObjects) {
             if (node == null) {
                 $console.error($stringResources.getString("cannot_find_user_comment_node"))
             } else {
-                // 找到用户评论节点后, 点击用户头像
+                // 找到用户评论节点后，点击用户头像
                 let sendText = random.getRandomElement(globalObjects.xhsStorage.readConfig().privateMessageTexts)
                 $console.log($stringResources.getString("input_text"), node.child(1).child(0).setText(sendText))
                 $threads.sleep(random.getRandomInt(1000, 3000))
@@ -43,16 +43,18 @@ function newSendMessageAction(globalObjects) {
 }
 
 /**
- * 获取输入节点
- * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility
+ * 获取输入消息所需的节点
+ *
+ * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility - 无障碍操作对象
+ * @returns {Object|null} - 输入消息节点，如果未找到则返回 null
  */
 function getInputMessageNode($accessibility) {
     return $accessibility.createSelector()
-        // 节点名称为ViewGroup
+        // 节点名称为 ViewGroup
         .className(function (className) {
             return className == "android.view.ViewGroup"
         })
-        // 有4个子节点, 分别语音、输入框、表情以及添加按钮
+        // 有 4 个子节点，分别语音、输入框、表情以及添加按钮
         .childCount(function (count) {
             return count == 4;
         })
@@ -60,7 +62,7 @@ function getInputMessageNode($accessibility) {
         .child(0, $accessibility.createSelector().className(function (className) {
             return className == "android.widget.ImageView"
         }))
-        // 索引为1的子节点FrameLayout, 并且其索为1的子节点为EditText(输入框)
+        // 索引为 1 的子节点 FrameLayout，并且其索为 1 的子节点为 EditText(输入框)
         .child(1, $accessibility.createSelector()
             .className(function (className) {
                 return className == "android.widget.FrameLayout"
@@ -73,10 +75,10 @@ function getInputMessageNode($accessibility) {
 }
 
 /**
- * 创建一个点击详情动作对象
+ * 创建一个私信屏幕对象
  *
- * @param {GlobalObjects} globalObjects 全局对象, 包含了所有需要的全局对象
- * @returns {MobileScreen} 新的搜索屏幕对象
+ * @param {GlobalObjects} globalObjects - 全局对象，包含了所有需要的全局对象
+ * @returns {MobileScreen} - 新的私信屏幕对象
  */
 function newScreen(globalObjects) {
     let $accessibility = globalObjects.$accessibility;
@@ -100,7 +102,7 @@ function newScreen(globalObjects) {
                     .findOne(3000)
                 if (node != null) {
                     globalObjects.$console.log($stringResources.getString("private_message_tips"))
-                    // 表示已经私信过了,直接返即可
+                    // 表示已经私信过了，直接返回即可
                     return [backAction.name]
                 }
                 let result;

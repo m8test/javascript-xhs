@@ -7,8 +7,8 @@ let random = require("com/example/util/random")
 /**
  * 创建一个查看详情动作对象
  *
- * @param {GlobalObjects} globalObjects 全局对象
- * @returns {Action} 返回一个新的查看详情动作对象
+ * @param {GlobalObjects} globalObjects - 全局对象
+ * @returns {Action} - 返回一个新的查看详情动作对象
  */
 function newViewDetailAction(globalObjects) {
     let $stringResources = globalObjects.$stringResources;
@@ -17,9 +17,9 @@ function newViewDetailAction(globalObjects) {
         function () {
             let $accessibility = globalObjects.$accessibility;
             let $console = globalObjects.$console;
-            // 随机滑动1-3次, 每次滑动h后等待1000-5000毫秒
+            // 随机滑动1-3次, 每次滑动后等待1000-5000毫秒
             random.randomSwipeUp(globalObjects, 1, 3, 1000, 5000)
-            // 优先查看视频帖子, 选择类为 android.widget.RelativeLayout 并且其直接子节点依次节为 android.widget.ImageView, android.widget.ImageView、android.widget.TextViewy以及android.widget.LinearLayout 的节点
+            // 优先查看视频帖子, 选择类为 android.widget.RelativeLayout 并且其直接子节点依次为 android.widget.ImageView, android.widget.ImageView、android.widget.TextView以及android.widget.LinearLayout 的节点
             let videoPost = $accessibility.createSelector()
                 .className(function (cn) {
                     return cn == "android.widget.RelativeLayout"
@@ -43,7 +43,7 @@ function newViewDetailAction(globalObjects) {
                 let textNode = videoPost.child(2);
                 $console.log(textNode.text(), result);
             } else {
-                // 图文贴, 选择类为 android.widget.RelativeLayout 并且其直接子节点依次节为 android.widget.ImageView、android.widget.TextViewy以及android.widget.LinearLayout 的节点
+                // 图文贴, 选择类为 android.widget.RelativeLayout 并且其直接子节点依次为 android.widget.ImageView、android.widget.TextView以及android.widget.LinearLayout 的节点
                 let imageTextNode = $accessibility.createSelector()
                     .className(function (cn) {
                         return cn == "android.widget.RelativeLayout"
@@ -72,8 +72,8 @@ function newViewDetailAction(globalObjects) {
 /**
  * 创建一个搜索结果屏幕对象
  *
- * @param {GlobalObjects} globalObjects 全局对象, 包含了所有需要的全局对象
- * @returns {MobileScreen} 新的搜索屏幕对象
+ * @param {GlobalObjects} globalObjects - 全局对象, 包含了所有需要的全局对象
+ * @returns {MobileScreen} - 新的搜索屏幕对象
  */
 function newScreen(globalObjects) {
     let $accessibility = globalObjects.$accessibility;
@@ -93,7 +93,7 @@ function newScreen(globalObjects) {
                     return text == $stringResources.getString("composite");
                 })
                 .findOne(3000) != null;
-            // 需要存在输入框以及搜索果相关的节点
+            // 需要存在输入框以及搜索结果相关的节点
             return isAll && isComposite;
         },
         actionContainer: newActionContainer(

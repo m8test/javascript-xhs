@@ -7,8 +7,8 @@ let random = require("com/example/util/random")
 /**
  * 创建一个查看详情动作对象
  *
- * @param {GlobalObjects} globalObjects 全局对象
- * @returns {Action} 返回一个新的查看详情动作对象
+ * @param {GlobalObjects} globalObjects - 全局对象，包含了所有需要的全局对象
+ * @returns {Action} - 返回一个新的查看详情动作对象
  */
 function newViewDetailAction(globalObjects) {
     let $stringResources = globalObjects.$stringResources;
@@ -22,7 +22,7 @@ function newViewDetailAction(globalObjects) {
             let isLike = random.testChance(config.likeRate)
             let isComment = random.testChance(config.commentRate)
             let isFavorite = random.testChance(config.favoriteRate)
-            // 随机滑动1-3次, 每次滑动h后等待1000-5000毫秒
+            // 随机滑动 1 - 3 次，每次滑动后等待 1000 - 5000 毫秒
             random.randomSwipeUp(globalObjects, 1, 3, 1000, 5000)
             let node = getSaySomethingNode($accessibility, $stringResources);
             if (node == null) {
@@ -112,9 +112,11 @@ function newViewDetailAction(globalObjects) {
 }
 
 /**
+ * 获取包含“说点什么”文本的节点
  *
- * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility
- * @param {Packages.com.m8test.script.core.api.resource.StringResources} $stringResources
+ * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility - 无障碍操作对象
+ * @param {Packages.com.m8test.script.core.api.resource.StringResources} $stringResources - 字符串资源对象
+ * @returns {Object|null} - 包含“说点什么”文本的节点，如果未找到则返回 null
  */
 function getSaySomethingNode($accessibility, $stringResources) {
     return $accessibility.createSelector()
@@ -125,10 +127,10 @@ function getSaySomethingNode($accessibility, $stringResources) {
 }
 
 /**
- * 创建一个帖子详情界面对象
+ * 创建一个帖子详情屏幕对象
  *
- * @param {GlobalObjects} globalObjects 全局对象, 包含了所有需要的全局对象
- * @returns {MobileScreen} 新的搜索屏幕对象
+ * @param {GlobalObjects} globalObjects - 全局对象，包含了所有需要的全局对象
+ * @returns {MobileScreen} - 新的帖子详情屏幕对象
  */
 function newScreen(globalObjects) {
     let $accessibility = globalObjects.$accessibility;
@@ -139,7 +141,7 @@ function newScreen(globalObjects) {
     return {
         name: $stringResources.getString("post_detail"),
         isScreen: function () {
-            // 需要说点什么的TextView
+            // 需要说点什么的 TextView
             return getSaySomethingNode($accessibility, $stringResources) != null;
         },
         actionContainer: newActionContainer(

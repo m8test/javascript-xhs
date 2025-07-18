@@ -5,11 +5,11 @@ let newAction = m.newAction
 /**
  * 创建一个新的搜索操作
  *
- * @param {GlobalObjects} globalObjects 全局对象, 包含了所有需要的全局对象
- * @returns {Action} 新的搜索操作对象
+ * @param {GlobalObjects} globalObjects - 全局对象，包含了所有需要的全局对象
+ * @returns {Action} - 新的搜索操作对象
  */
 function newSearchAction(globalObjects) {
-    let performSearchActionName = $stringResources.getString("click_search_action")
+    let performSearchActionName = globalObjects.$stringResources.getString("click_search_action")
     return newAction(performSearchActionName, function () {
         let $accessibility = globalObjects.$accessibility;
         let $console = globalObjects.$console;
@@ -30,8 +30,8 @@ function newSearchAction(globalObjects) {
 /**
  * 创建一个首页的屏幕对象
  *
- * @param {GlobalObjects} globalObjects 全局对象, 包含了所有需要的全局对象
- * @returns {MobileScreen} 新的首页屏幕对象
+ * @param {GlobalObjects} globalObjects - 全局对象，包含了所有需要的全局对象
+ * @returns {MobileScreen} - 新的首页屏幕对象
  */
 function newScreen(globalObjects) {
     let $stringResources = globalObjects.$stringResources;

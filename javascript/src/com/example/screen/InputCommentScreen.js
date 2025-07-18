@@ -6,8 +6,8 @@ let random = require("com/example/util/random")
 /**
  * 创建一个发送评论动作对象
  *
- * @param {GlobalObjects} globalObjects 全局对象
- * @returns {Action} 返回一个新的f发送评论动作对象
+ * @param {GlobalObjects} globalObjects - 全局对象，包含了所有需要的全局对象
+ * @returns {Action} - 返回一个新的发送评论动作对象
  */
 function newSendAction(globalObjects) {
     let $stringResources = globalObjects.$stringResources;
@@ -40,9 +40,11 @@ function newSendAction(globalObjects) {
 }
 
 /**
+ * 获取发送评论所需的工具栏节点
  *
- * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility
- * @param {Packages.com.m8test.script.core.api.resource.StringResources} $stringResources
+ * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility - 无障碍操作对象
+ * @param {Packages.com.m8test.script.core.api.resource.StringResources} $stringResources - 字符串资源对象
+ * @returns {Object|null} - 工具栏节点，如果未找到则返回 null
  */
 function getToolsNode($accessibility, $stringResources) {
     return $accessibility.createSelector()
@@ -74,10 +76,10 @@ function getToolsNode($accessibility, $stringResources) {
 }
 
 /**
- * 创建一个搜索j结果屏幕对象
+ * 创建一个输入评论屏幕对象
  *
- * @param {GlobalObjects} globalObjects 全局对象, 包含了所有需要的全局对象
- * @returns {MobileScreen} 新的搜索屏幕对象
+ * @param {GlobalObjects} globalObjects - 全局对象，包含了所有需要的全局对象
+ * @returns {MobileScreen} - 新的输入评论屏幕对象
  */
 function newScreen(globalObjects) {
     let $accessibility = globalObjects.$accessibility;

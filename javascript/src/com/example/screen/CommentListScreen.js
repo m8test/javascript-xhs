@@ -7,8 +7,8 @@ let random = require("com/example/util/random")
 /**
  * 创建一个点击用户头像动作对象
  *
- * @param {GlobalObjects} globalObjects 全局对象
- * @returns {Action} 返回一个新的点击用户头像动作对象
+ * @param {GlobalObjects} globalObjects - 全局对象，包含了所有需要的全局对象
+ * @returns {Action} - 返回一个新的点击用户头像动作对象
  */
 function newClickUserAvatarAction(globalObjects) {
     let $stringResources = globalObjects.$stringResources;
@@ -25,7 +25,7 @@ function newClickUserAvatarAction(globalObjects) {
                 $console.error($stringResources.getString("cannot_find_user_comment_node"))
             } else {
                 if (isPrivateMessageToUser) {
-                    // 找到用户评论节点后, 点击用户头像
+                    // 找到用户评论节点后，点击用户头像
                     $console.log($stringResources.getString("click_user_avatar"), node.child(0).child(0).click())
                     $threads.sleep(random.getRandomInt(1000, 3000))
                 }
@@ -35,23 +35,25 @@ function newClickUserAvatarAction(globalObjects) {
 
 /**
  * 获取用户评论节点
- * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility
+ *
+ * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility - 无障碍操作对象
+ * @returns {Object|null} - 用户评论节点，如果未找到则返回 null
  */
 function getUserCommentNode($accessibility) {
     return $accessibility.createSelector()
-        // 父节点是LinearLayout
+        // 父节点是 LinearLayout
         .parent($accessibility.createSelector().className(function (className) {
             return className == "android.widget.LinearLayout"
         }))
-        // 节点名称为LinearLayout
+        // 节点名称为 LinearLayout
         .className(function (className) {
             return className == "android.widget.LinearLayout"
         })
-        // 有3个子节点, 分别是头像，评论内容以及右边的点赞图标
+        // 有 3 个子节点，分别是头像，评论内容以及右边的点赞图标
         .childCount(function (count) {
             return count == 3;
         })
-        // 索引为1的子节点LinearLayout, 并且其索为1的子节点为TextView(用户名)
+        // 索引为 1 的子节点 LinearLayout，并且其索为 1 的子节点为 TextView(用户名)
         .child(1, $accessibility.createSelector()
             .className(function (className) {
                 return className == "android.widget.LinearLayout"
@@ -64,10 +66,10 @@ function getUserCommentNode($accessibility) {
 }
 
 /**
- * 创建一个点击详情动作对象
+ * 创建一个评论列表屏幕对象
  *
- * @param {GlobalObjects} globalObjects 全局对象, 包含了所有需要的全局对象
- * @returns {MobileScreen} 新的搜索屏幕对象
+ * @param {GlobalObjects} globalObjects - 全局对象，包含了所有需要的全局对象
+ * @returns {MobileScreen} - 新的评论列表屏幕对象
  */
 function newScreen(globalObjects) {
     let $accessibility = globalObjects.$accessibility;
@@ -79,7 +81,7 @@ function newScreen(globalObjects) {
     return {
         name: $stringResources.getString("post_detail"),
         isScreen: function () {
-            // 需要说点什么的TextView
+            // 需要说点什么的 TextView
             return getUserCommentNode($accessibility) != null;
         },
         actionContainer: newActionContainer(
