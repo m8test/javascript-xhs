@@ -46,7 +46,7 @@ function newSendMessageAction(globalObjects) {
  * 获取输入消息所需的节点
  *
  * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility - 无障碍操作对象
- * @returns {Object|null} - 输入消息节点，如果未找到则返回 null
+ * @returns {Packages.com.m8test.accessibility.api.AccessibilityNode|null} - 输入消息节点，如果未找到则返回 null
  */
 function getInputMessageNode($accessibility) {
     return $accessibility.createSelector()

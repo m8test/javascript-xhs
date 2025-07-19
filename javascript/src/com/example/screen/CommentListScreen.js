@@ -37,7 +37,7 @@ function newClickUserAvatarAction(globalObjects) {
  * 获取用户评论节点
  *
  * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility - 无障碍操作对象
- * @returns {Object|null} - 用户评论节点，如果未找到则返回 null
+ * @returns {Packages.com.m8test.accessibility.api.AccessibilityNode|null} - 用户评论节点，如果未找到则返回 null
  */
 function getUserCommentNode($accessibility) {
     return $accessibility.createSelector()

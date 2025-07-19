@@ -44,7 +44,7 @@ function newSendAction(globalObjects) {
  *
  * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility - 无障碍操作对象
  * @param {Packages.com.m8test.script.core.api.resource.StringResources} $stringResources - 字符串资源对象
- * @returns {Object|null} - 工具栏节点，如果未找到则返回 null
+ * @returns {Packages.com.m8test.accessibility.api.AccessibilityNode|null} - 工具栏节点，如果未找到则返回 null
  */
 function getToolsNode($accessibility, $stringResources) {
     return $accessibility.createSelector()

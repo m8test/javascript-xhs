@@ -33,7 +33,7 @@ function newClickMessageButtonAction(globalObjects) {
  * 获取用户资料页的工具节点
  *
  * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility - 无障碍操作对象
- * @returns {Object|null} - 工具节点，如果未找到则返回 null
+ * @returns {Packages.com.m8test.accessibility.api.AccessibilityNode|null} - 工具节点，如果未找到则返回 null
  */
 function getToolsNode($accessibility) {
     return $accessibility.createSelector()
