@@ -59,5 +59,6 @@
  * @property {Packages.com.m8test.script.core.api.thread.Threads} $threads - 线程对象，用于执行异步任务
  * @property {Packages.com.m8test.script.core.api.shell.ShellCommands} $shellCommands - shell 命令对象
  * @property {Packages.com.m8test.script.core.api.shell.Shell} shell - 执行 adb 命令的 shell 对象
+ * @property {Packages.com.m8test.script.core.api.display.Display} display - 虚拟屏幕对象
  * @property {XhSStorage} xhsStorage - 小红书相关存储对象
  */

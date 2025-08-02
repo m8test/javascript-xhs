@@ -4,6 +4,7 @@ let m = require("com/example/util/AutoTask")
 let AutoTask = m.AutoTask;
 let xhsStorage = require("com/example/util/storage").newXhSStorage($storages)
 let shell = $shells.newAdbShell($maps.mapOf())
+let display = $displays.create(function (config) { })
 let globalObjects = {
     shell: shell,
     $accessibility: $accessibility,
@@ -11,8 +12,15 @@ let globalObjects = {
     $threads: $threads,
     $stringResources: $stringResources,
     $shellCommands: $shellCommands,
-    xhsStorage: xhsStorage
+    xhsStorage: xhsStorage,
+    display: display
 }
+// 在脚本运行的虚拟屏幕上显示调试窗口
+let consoleWindow = $floatingWindows.showConsole(function(config){
+    config.setDisplayId(display.getId())
+});
+// 设置窗口不可以交互, 防止窗口被点击
+consoleWindow.getWindowBridge().setInteractive(false)
 let task = new AutoTask("com.xingin.xhs", globalObjects)
 
 // 注册主页

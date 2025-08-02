@@ -20,7 +20,7 @@ function newClickUserAvatarAction(globalObjects) {
         function () {
             let config = globalObjects.xhsStorage.readConfig()
             let isPrivateMessageToUser = random.testChance(config.privateMessageRate)
-            let node = getUserCommentNode($accessibility);
+            let node = getUserCommentNode($accessibility, globalObjects.display);
             if (node == null) {
                 $console.error($stringResources.getString("cannot_find_user_comment_node"))
             } else {
@@ -37,9 +37,10 @@ function newClickUserAvatarAction(globalObjects) {
  * 获取用户评论节点
  *
  * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility - 无障碍操作对象
+ * @param {Packages.com.m8test.script.core.api.display.Display} display - 虚拟屏幕对象
  * @returns {Packages.com.m8test.accessibility.api.AccessibilityNode|null} - 用户评论节点，如果未找到则返回 null
  */
-function getUserCommentNode($accessibility) {
+function getUserCommentNode($accessibility, display) {
     return $accessibility.createSelector()
         // 父节点是 LinearLayout
         .parent($accessibility.createSelector().className(function (className) {
@@ -62,7 +63,7 @@ function getUserCommentNode($accessibility) {
                 return className == "android.widget.TextView"
             }))
         )
-        .findOne(3000)
+        .findOne(display.getId(), -1)
 }
 
 /**
@@ -82,7 +83,7 @@ function newScreen(globalObjects) {
         name: $stringResources.getString("post_detail"),
         isScreen: function () {
             // 需要说点什么的 TextView
-            return getUserCommentNode($accessibility) != null;
+            return getUserCommentNode($accessibility, globalObjects.display) != null;
         },
         actionContainer: newActionContainer(
             [clickUserAvatar, backAction],

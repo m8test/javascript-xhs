@@ -23,17 +23,28 @@ function getRandomInt(min, max) {
  * @param {number} maxSleepTime - 随机休眠时间的最大值
  */
 function randomSwipeUp(globalObjects, minTimes, maxTimes, minSleepTime, maxSleepTime) {
-    let $accessibility = globalObjects.$accessibility;
     let $console = globalObjects.$console;
     let $stringResources = globalObjects.$stringResources;
     let $threads = globalObjects.$threads;
     let times = getRandomInt(minTimes, maxTimes);
+    let display = globalObjects.display;
     $console.log($stringResources.getString("swipe_up_times"), times);
     for (let i = 0; i < times; i++) {
         let sleepTime = getRandomInt(minSleepTime, maxSleepTime);
+        display.getController().scroll(function (config) {
+            let width = display.getWidth()
+            let height = display.getHeight()
+            // 滑动开始点x坐标 - 在屏幕宽度30%-70%之间随机
+            config.setStartX(Math.floor(width * (0.3 + Math.random() * 0.4)));
+            // 滑动开始点y坐标 - 在屏幕高度60%-80%之间随机（偏下方）
+            config.setStartY(Math.floor(height * (0.6 + Math.random() * 0.2)));
+            // 水平滑动距离 - 使用屏幕宽度比例，范围在-3%到3%之间
+            config.setHorizontalDelta(Math.floor(width * (Math.random() * 0.06 - 0.03)));
+            // 垂直滑动距离 - 负值表示向上滑动，滑动距离为屏幕高度的30%-50%
+            config.setVerticalDelta(-Math.floor(height * (0.3 + Math.random() * 0.2)));
+        })
         // 先向上滑动
-        let result = $accessibility.swipeUp();
-        $console.log($stringResources.getString("swipe_up"), result, $stringResources.getString("waiting_for"), sleepTime, $stringResources.getString("milliseconds"));
+        $console.log($stringResources.getString("swipe_up"), $stringResources.getString("waiting_for"), sleepTime, $stringResources.getString("milliseconds"));
         $threads.sleep(sleepTime);
     }
 }

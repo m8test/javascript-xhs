@@ -17,14 +17,14 @@ function newSendAction(globalObjects) {
     let viewDetailActionName = $stringResources.getString("view_detail_action")
     return newAction(viewDetailActionName,
         function () {
-            let node = getToolsNode(globalObjects.$accessibility, globalObjects.$stringResources)
+            let node = getToolsNode(globalObjects.$accessibility, globalObjects.$stringResources, globalObjects.display)
             if (node == null) {
                 $console.error($stringResources.getString("no_tools_node"))
             } else {
                 // 获取输入节点
                 let inputNode = $accessibility.createSelector().editable(function (isEditable) {
                     return isEditable;
-                }).findOne(3000)
+                }).findOne(globalObjects.display.getId(), -1)
                 if (inputNode == null) {
                     $console.error($stringResources.getString("no_input_node"))
                 } else {
@@ -44,9 +44,10 @@ function newSendAction(globalObjects) {
  *
  * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility - 无障碍操作对象
  * @param {Packages.com.m8test.script.core.api.resource.StringResources} $stringResources - 字符串资源对象
+ * @param {Packages.com.m8test.script.core.api.display.Display} display - 虚拟屏幕对象
  * @returns {Packages.com.m8test.accessibility.api.AccessibilityNode|null} - 工具栏节点，如果未找到则返回 null
  */
-function getToolsNode($accessibility, $stringResources) {
+function getToolsNode($accessibility, $stringResources, display) {
     return $accessibility.createSelector()
         .className(function (className) {
             return className == "android.view.ViewGroup"
@@ -72,7 +73,7 @@ function getToolsNode($accessibility, $stringResources) {
             .text(function (text) {
                 return text == $stringResources.getString("send")
             }))
-        .findOne(3000)
+        .findOne(display.getId(), -1)
 }
 
 /**
@@ -89,7 +90,7 @@ function newScreen(globalObjects) {
         name: $stringResources.getString("input_comment"),
         isScreen: function () {
             // 需要发送工具栏
-            return getToolsNode($accessibility, $stringResources) != null;
+            return getToolsNode($accessibility, $stringResources, globalObjects.display) != null;
         },
         actionContainer: newActionContainer(
             [sendAction],

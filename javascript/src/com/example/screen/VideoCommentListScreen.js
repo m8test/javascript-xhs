@@ -17,7 +17,7 @@ function newSendAction(globalObjects) {
     let viewDetailActionName = $stringResources.getString("click") + $stringResources.getString("input_comment")
     return newAction(viewDetailActionName,
         function () {
-            let node = getToolsNode(globalObjects.$accessibility)
+            let node = getToolsNode(globalObjects.$accessibility, globalObjects.display)
             if (node == null) {
                 $console.error($stringResources.getString("no_tools_node"))
             } else {
@@ -31,9 +31,10 @@ function newSendAction(globalObjects) {
  * 获取发送评论所需的工具栏节点
  *
  * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility - 无障碍操作对象
+ * @param {Packages.com.m8test.script.core.api.display.Display} display - 虚拟屏幕对象
  * @returns {Packages.com.m8test.accessibility.api.AccessibilityNode|null} - 工具栏节点，如果未找到则返回 null
  */
-function getToolsNode($accessibility) {
+function getToolsNode($accessibility, display) {
     return $accessibility.createSelector()
         .className(function (className) {
             return className == "android.view.ViewGroup"
@@ -47,7 +48,7 @@ function getToolsNode($accessibility) {
         .child(3, $accessibility.createSelector().className(function (className) {
             return className == "android.widget.ImageView"
         }))
-        .findOne(3000)
+        .findOne(display.getId(), -1)
 }
 
 /**
@@ -66,7 +67,7 @@ function newScreen(globalObjects) {
         name: $stringResources.getString("video_comment_list"),
         isScreen: function () {
             // 需要发送工具栏
-            return getToolsNode($accessibility) != null;
+            return getToolsNode($accessibility, globalObjects.display) != null;
         },
         actionContainer: newActionContainer(
             [sendAction, backAction],

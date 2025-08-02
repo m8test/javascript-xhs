@@ -24,7 +24,7 @@ function newViewDetailAction(globalObjects) {
             let isFavorite = random.testChance(config.favoriteRate)
             // 随机滑动 1 - 3 次，每次滑动后等待 1000 - 5000 毫秒
             random.randomSwipeUp(globalObjects, 1, 3, 1000, 5000)
-            let node = getSaySomethingNode($accessibility, $stringResources);
+            let node = getSaySomethingNode($accessibility, $stringResources, globalObjects.display);
             if (node == null) {
                 $console.error($stringResources.getString("cannot_find_say_something_node"))
             } else {
@@ -78,7 +78,7 @@ function newViewDetailAction(globalObjects) {
                         .child(4, $accessibility.createSelector().className(function (className) {
                             return className == "android.widget.Button"
                         }))
-                        .findOne(3000);
+                        .findOne(globalObjects.display.getId(), -1);
                     if (operationListNode != null) {
                         $console.log($stringResources.getString("video_post"))
                         let likeButton = operationListNode.child(0)
@@ -116,14 +116,15 @@ function newViewDetailAction(globalObjects) {
  *
  * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility - 无障碍操作对象
  * @param {Packages.com.m8test.script.core.api.resource.StringResources} $stringResources - 字符串资源对象
+ * @param {Packages.com.m8test.script.core.api.display.Display} display - 虚拟屏幕对象
  * @returns {Packages.com.m8test.accessibility.api.AccessibilityNode|null} - 包含“说点什么”文本的节点，如果未找到则返回 null
  */
-function getSaySomethingNode($accessibility, $stringResources) {
+function getSaySomethingNode($accessibility, $stringResources, display) {
     return $accessibility.createSelector()
         .text(function (text) {
             return text == $stringResources.getString("say_something");
         })
-        .findOne(3000)
+        .findOne(display.getId(), -1)
 }
 
 /**
@@ -142,7 +143,7 @@ function newScreen(globalObjects) {
         name: $stringResources.getString("post_detail"),
         isScreen: function () {
             // 需要说点什么的 TextView
-            return getSaySomethingNode($accessibility, $stringResources) != null;
+            return getSaySomethingNode($accessibility, $stringResources, globalObjects.display) != null;
         },
         actionContainer: newActionContainer(
             [viewDetailAction, backAction],

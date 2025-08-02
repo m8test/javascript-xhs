@@ -18,7 +18,7 @@ function newSendMessageAction(globalObjects) {
     let actionName = $stringResources.getString("click_user_avatar_action")
     return newAction(actionName,
         function () {
-            let node = getInputMessageNode($accessibility);
+            let node = getInputMessageNode($accessibility, globalObjects.display);
             if (node == null) {
                 $console.error($stringResources.getString("cannot_find_user_comment_node"))
             } else {
@@ -36,7 +36,7 @@ function newSendMessageAction(globalObjects) {
                     })
                     .className(function (className) {
                         return className == "android.widget.TextView"
-                    }).findOne(3000)
+                    }).findOne(globalObjects.display.getId(), -1)
                 $console.log($stringResources.getString("send"), sendButton.click())
             }
         }, 0, 1000)
@@ -46,9 +46,10 @@ function newSendMessageAction(globalObjects) {
  * 获取输入消息所需的节点
  *
  * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility - 无障碍操作对象
+ * @param {Packages.com.m8test.script.core.api.display.Display} display - 虚拟屏幕对象
  * @returns {Packages.com.m8test.accessibility.api.AccessibilityNode|null} - 输入消息节点，如果未找到则返回 null
  */
-function getInputMessageNode($accessibility) {
+function getInputMessageNode($accessibility, display) {
     return $accessibility.createSelector()
         // 节点名称为 ViewGroup
         .className(function (className) {
@@ -71,7 +72,7 @@ function getInputMessageNode($accessibility) {
                 return className == "android.widget.EditText"
             }))
         )
-        .findOne(3000)
+        .findOne(display.getId(), -1)
 }
 
 /**
@@ -90,7 +91,7 @@ function newScreen(globalObjects) {
     return {
         name: $stringResources.getString("private_message"),
         isScreen: function () {
-            return getInputMessageNode($accessibility) != null;
+            return getInputMessageNode($accessibility, globalObjects.display) != null;
         },
         actionContainer: newActionContainer(
             [clickUserAvatar, backAction],
@@ -99,7 +100,7 @@ function newScreen(globalObjects) {
                     .text(function (text) {
                         return text == globalObjects.$stringResources.getString("private_message_tips")
                     })
-                    .findOne(3000)
+                    .findOne(globalObjects.display.getId(), -1)
                 if (node != null) {
                     globalObjects.$console.log($stringResources.getString("private_message_tips"))
                     // 表示已经私信过了，直接返回即可

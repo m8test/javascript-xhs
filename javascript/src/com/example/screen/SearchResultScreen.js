@@ -36,7 +36,7 @@ function newViewDetailAction(globalObjects) {
                 .child(3, $accessibility.createSelector().className(function (cn) {
                     return cn == "android.widget.LinearLayout"
                 }))
-                .findOne(3000);
+                .findOne(globalObjects.display.getId(), -1);
             if (videoPost != null) {
                 // 找到视频帖, 点击视频贴
                 let result = videoPost.parent().click();
@@ -57,7 +57,7 @@ function newViewDetailAction(globalObjects) {
                     .child(2, $accessibility.createSelector().className(function (cn) {
                         return cn == "android.widget.LinearLayout"
                     }))
-                    .findOne(3000);
+                    .findOne(globalObjects.display.getId(), -1);
                 if (imageTextNode == null) {
                     $console.error($stringResources.getString("no_data_found"));
                 } else {
@@ -87,12 +87,12 @@ function newScreen(globalObjects) {
                 .text(function (text) {
                     return text == $stringResources.getString("all");
                 })
-                .findOne(3000) != null;
+                .findOne(globalObjects.display.getId(), -1) != null;
             let isComposite = $accessibility.createSelector()
                 .text(function (text) {
                     return text == $stringResources.getString("composite");
                 })
-                .findOne(3000) != null;
+                .findOne(globalObjects.display.getId(), -1) != null;
             // 需要存在输入框以及搜索结果相关的节点
             return isAll && isComposite;
         },

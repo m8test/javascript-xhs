@@ -64,8 +64,7 @@ function newBackAction(globalObjects) {
         name: $stringResources.getString("back"),
         run: function () {
             // 执行返回操作
-            globalObjects.shell.exec(globalObjects.$shellCommands.inputKeyEvent(4), function (config) {
-            })
+            globalObjects.display.getController().pressBack()
             let waitTime = random.getRandomInt(1000, 3000)
             globalObjects.$console.log($stringResources.getString("back"), $stringResources.getString("waiting_for") + waitTime + "ms")
             globalObjects.$threads.sleep(waitTime);

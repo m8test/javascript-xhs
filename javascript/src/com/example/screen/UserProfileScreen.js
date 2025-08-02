@@ -18,7 +18,7 @@ function newClickMessageButtonAction(globalObjects) {
     let actionName = $stringResources.getString("click_private_message_button_action")
     return newAction(actionName,
         function () {
-            let node = getToolsNode($accessibility);
+            let node = getToolsNode($accessibility, globalObjects.display);
             if (node == null) {
                 $console.error($stringResources.getString("no_tools_node"))
             } else {
@@ -33,9 +33,10 @@ function newClickMessageButtonAction(globalObjects) {
  * 获取用户资料页的工具节点
  *
  * @param {Packages.com.m8test.accessibility.api.Accessibility} $accessibility - 无障碍操作对象
+ * @param {Packages.com.m8test.script.core.api.display.Display} display - 虚拟屏幕对象
  * @returns {Packages.com.m8test.accessibility.api.AccessibilityNode|null} - 工具节点，如果未找到则返回 null
  */
-function getToolsNode($accessibility) {
+function getToolsNode($accessibility, display) {
     return $accessibility.createSelector()
         // 节点名称为 LinearLayout
         .className(function (className) {
@@ -71,7 +72,7 @@ function getToolsNode($accessibility) {
                 return className == "android.widget.ImageView"
             }))
         )
-        .findOne(3000)
+        .findOne(display.getId(), -1)
 }
 
 /**
@@ -90,7 +91,7 @@ function newScreen(globalObjects) {
     return {
         name: $stringResources.getString("post_detail"),
         isScreen: function () {
-            return getToolsNode($accessibility) != null;
+            return getToolsNode($accessibility, globalObjects.display) != null;
         },
         actionContainer: newActionContainer(
             [clickMessageButton, backAction],

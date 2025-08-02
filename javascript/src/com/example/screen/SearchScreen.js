@@ -42,7 +42,7 @@ function newPerformSearchAction(globalObjects) {
             .focusable(function (isFocusable) {
                 return isFocusable
             })
-            .findOne(3000)
+            .findOne(globalObjects.display.getId(), -1)
         if (node == null) {
             $console.error($stringResources.getString("no_editable_node"));
         } else {
@@ -58,7 +58,7 @@ function newPerformSearchAction(globalObjects) {
                 // 点击搜索按钮
                 let searchTextButton = $accessibility.createSelector().text(function (text) {
                     return $stringResources.getString("search") == text;
-                }).findOne(3000)
+                }).findOne(globalObjects.display.getId(), -1)
                 if (searchTextButton == null) {
                     $console.error($stringResources.getString("no_search_button"));
                 } else {
@@ -86,7 +86,7 @@ function newScreen(globalObjects) {
             // 如果存在猜你喜欢的文字表明这是搜索页面
             let node = $accessibility.createSelector().text(function (text) {
                 return $stringResources.getString("guess_you_like") == text
-            }).findOne(3000);
+            }).findOne(globalObjects.display.getId(), -1);
             return node != null;
         },
         actionContainer: newActionContainer(

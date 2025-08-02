@@ -17,7 +17,7 @@ function newSearchAction(globalObjects) {
         // 获取搜索按钮
         let node = $accessibility.createSelector().desc(function (desc) {
             return $stringResources.getString("search") == desc
-        }).findOne(3000)
+        }).findOne(globalObjects.display.getId(), -1)
         if (node == null) {
             $console.error($stringResources.getString("no_search_button"));
         } else {
@@ -43,7 +43,7 @@ function newScreen(globalObjects) {
             // 如果存在首页的文字并且处于选中状态才表明这是首页, 在模块脚本文件中如果需要使用中文字符串，则必须使用 $stringResources.getString() 方法获取中文字符串
             let node = $accessibility.createSelector().text(function (text) {
                 return $stringResources.getString("home") == text
-            }).findOne(3000);
+            }).findOne(globalObjects.display.getId(), -1);
             if (node == null) return false;
             return node.selected();
         },

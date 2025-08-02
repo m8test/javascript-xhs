@@ -15,6 +15,7 @@ function AutoTask(packageName, globalObjects) {
     this.accessibility = globalObjects.$accessibility;
     this.console = globalObjects.$console;
     this.threads = globalObjects.$threads;
+    this.display = globalObjects.display;
     this.stringResources = globalObjects.$stringResources;
     this.shellCommands = globalObjects.$shellCommands;
     this.launchAppWaitTime = 3000; // 启动应用等待时间，单位毫秒
@@ -50,7 +51,7 @@ AutoTask.prototype.launchApp = function () {
         console.error(stringResources.getString("shell_service_is_running"));
         return false;
     }
-    let command = this.shellCommands.launchApp(this.packageName, "0");
+    let command = this.shellCommands.launchApp(this.packageName, "0", this.display.getId().toString());
     this.console.log(stringResources.getString("execute_app_launch_command"), command);
     let result = this.shell.exec(command, function (config) {
         // config.onStdOut(function (line) {
@@ -127,4 +128,4 @@ AutoTask.prototype.run = function () {
     }, 1000)
 }
 
-module.exports = {AutoTask: AutoTask};
+module.exports = { AutoTask: AutoTask };
