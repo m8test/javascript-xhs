@@ -1,10 +1,24 @@
 // 小红书版本 8.92.0
+/**
+ * 获取一个虚拟屏幕，如果已经存在的话则直接使用原有的，否则创建一个
+ *
+ * @returns {Packages.com.m8test.script.core.api.display.Display}
+ */
+function getDisplay() {
+    let allDisplays = $displays.getAll()
+    if (allDisplays.size() > 0) return allDisplays.get(0)
+    // 创建虚拟屏幕, create 方法会返回一个 Display 对象
+    return $displays.create(function (config) {
+        // 这里可以配置虚拟屏幕，推荐直接使用默认配置，如果出错的话再手动配置
+    })
+}
+
 // 需要搜索的内容
 let m = require("com/example/util/AutoTask")
 let AutoTask = m.AutoTask;
 let xhsStorage = require("com/example/util/storage").newXhSStorage($storages)
 let shell = $shells.newAdbShell($maps.mapOf())
-let display = $displays.create(function (config) { })
+let display = getDisplay()
 let globalObjects = {
     shell: shell,
     $accessibility: $accessibility,
@@ -16,7 +30,7 @@ let globalObjects = {
     display: display
 }
 // 在脚本运行的虚拟屏幕上显示调试窗口
-let consoleWindow = $floatingWindows.showConsole(function(config){
+let consoleWindow = $floatingWindows.showConsole(function (config) {
     config.setDisplayId(display.getId())
 });
 // 设置窗口不可以交互, 防止窗口被点击
