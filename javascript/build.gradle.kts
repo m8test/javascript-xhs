@@ -4,8 +4,8 @@ plugins {
 }
 // 在gradle.properties中定义的变量, 用于指定m8test版本
 val m8testVersion: String by project
-// 在gradle.properties中定义的变量, 用于指定scrcpy版本
-val scrcpyVersion: String by project
+// 在gradle.properties中定义的变量, 用于指定图色组件版本
+val opencvVersion: String by project
 // 在gradle.properties中定义的变量, 用于指定无障碍插件版本
 val accessibilityVersion: String by project
 // m8testJavascript 闭包用于配置 m8test javascript 项目
@@ -90,20 +90,10 @@ m8testJavascript {
         }
         // 在脚本项目中引用 M8Test 组件
         requireComponent {
-            // adb自动化组件
-            name = "YumiMiyamotoScrcpy"
-            // 组件版本
-            version = scrcpyVersion
-            // 组件下载地址
-            url =
-                "https://github.com/YumiMiyamoto/scrcpy-release/releases/download/Scrcpy-$version/com.m8test.scrcpy-release_$version.apk"
-        }
-        // 在脚本项目中引用 M8Test 组件
-        requireComponent {
             // opencv 图色组件
             name = "YumiMiyamotoOpencv"
             // 组件版本
-            version = "0.1.0"
+            version = opencvVersion
             // 组件下载地址
             url =
                 "https://github.com/YumiMiyamoto/opencv-release/releases/download/opencv-$version/com.m8test.image-release_$version.apk"
