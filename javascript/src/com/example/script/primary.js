@@ -33,8 +33,8 @@ let globalObjects = {
 let consoleWindow = $floatingWindows.showConsole(function (config) {
     config.setDisplayId(display.getId())
 });
-// 设置窗口不可以交互, 防止窗口被点击
-consoleWindow.getWindowBridge().setInteractive(false)
+// 设置窗口不可以点击, 防止窗口影响自动化操作
+consoleWindow.getWindowBridge().setTouchable(false)
 let task = new AutoTask("com.xingin.xhs", globalObjects)
 
 // 注册主页
