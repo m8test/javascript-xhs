@@ -24,6 +24,11 @@ m8testJavascript {
                 || packageName.startsWith("com.blankj.utilcode")
                 || packageName.startsWith("com.hjq.toast")
     }
+    webpack {
+        isEnabled = true // 启用webpack,可以打包以及混淆项目
+        mode = "development" // 'development'(开发模式, 混淆关闭), 开发脚本时推荐使用此模式
+//        mode = "production" // 'production'(生产模式，混淆开启), 打包apk时推荐使用此模式
+    }
     // debugger 闭包用于配置调试器(安卓设备)的信息
     debugger {
         // adb 设备序列, 如果您通过数据线连接则需要填写adb设备序列, 例如 emulator-5554, 如果设置了此属性的话并且不为null的话 adbPort 和 deviceIp 会被忽略

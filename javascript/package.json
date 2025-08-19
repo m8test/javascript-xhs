@@ -1,0 +1,26 @@
+{
+  "name": "javascript",
+  "version": "1.0.0",
+  "description": "M8Test js模板项目",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "npx rimraf ./build/project/src",
+    "build": "npm run clean && webpack --mode production --config webpack.config.js",
+    "dev": "npm run clean && webpack --mode development --config webpack.config.js",
+    "watch": "webpack --mode development --watch --config webpack.config.js"
+  },
+  "keywords": [],
+  "author": "M8Test",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.28.3",
+    "@babel/preset-env": "^7.28.3",
+    "babel-loader": "^10.0.0",
+    "core-js": "^3.45.0",
+    "javascript-obfuscator": "^4.1.1",
+    "rimraf": "^6.0.1",
+    "webpack": "^5.101.3",
+    "webpack-cli": "^6.0.1",
+    "webpack-obfuscator": "^3.5.1"
+  }
+}
